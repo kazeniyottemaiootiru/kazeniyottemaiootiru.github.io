@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://example.com</id>
+    <title>風によって舞いお落ちる的blog</title>
+    <link href="http://example.com" />
+    <updated>2025-09-07T13:51:10.936Z</updated>
+    <entry>
+        <id>http://example.com/2025/09/07/Hyper-V%E5%AE%89%E8%A3%85%E5%B9%B6%E4%BD%BF%E7%94%A8eNSP/</id>
+        <title>Hyper-V安装并使用eNSP</title>
+        <link rel="alternate" href="http://example.com/2025/09/07/Hyper-V%E5%AE%89%E8%A3%85%E5%B9%B6%E4%BD%BF%E7%94%A8eNSP/"/>
+        <content type="html">&lt;blockquote&gt;
+&lt;p&gt;需要注意Hyper-V是只在Windows 10及以后的Windows的专业版及更高级别的Windows上有这个功能，&lt;strong&gt;家庭&amp;#x2F;家庭单语言版没有这个功能&lt;/strong&gt;，所以看本教程之前请先确认您当前使用的Windows的版本，并确认是否开启了CPU的虚拟化。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;1-确认CPU虚拟化是否开启&#34;&gt;&lt;a href=&#34;#1-确认CPU虚拟化是否开启&#34; class=&#34;headerlink&#34; title=&#34;1. 确认CPU虚拟化是否开启&#34;&gt;&lt;/a&gt;1. 确认CPU虚拟化是否开启&lt;/h2&gt;&lt;p&gt;在鼠标右键单击任务栏选择&lt;code&gt;任务管理器&lt;/code&gt;或者&lt;code&gt;Crtl + Shift + Esc&lt;/code&gt;打开任务管理器，选择性能选项卡下的CPU，然后查看虚拟化是否为已启用，如果不是请搜索对应主板和CPU启用虚拟化的方法，通常需要在主板的BIOS中设置，设备需要重启，所以建议使用非启用Hyper-V设备搜索教程，在此本教程不提供启用CPU虚拟化的教程。&lt;/p&gt;
+&lt;h2 id=&#34;2-启用Hyper-V&#34;&gt;&lt;a href=&#34;#2-启用Hyper-V&#34; class=&#34;headerlink&#34; title=&#34;2. 启用Hyper-V&#34;&gt;&lt;/a&gt;2. 启用Hyper-V&lt;/h2&gt;&lt;p&gt;在Windows任务栏搜索框输入&lt;code&gt;control pannal&lt;/code&gt;打开控制面板，将查看方式改为类别，点击程序，在程序和功能下面点击&lt;code&gt;启用或关闭Windows功能&lt;/code&gt;，在弹出的窗口中将Hyper-V勾选上，然后等待并重启设备即可。重启后点击&lt;code&gt;开始-&amp;gt;全部-&amp;gt;Windows工具&lt;/code&gt;或者在搜索框中输入Hyper-V进行搜索，确认是否启用成功，如下图所示有着&lt;code&gt;Hyper-V快速创建&lt;/code&gt;和&lt;code&gt;Hyper-V管理器&lt;/code&gt;。&lt;br&gt;&lt;img src=&#34;/images/Hyper-V%E5%AE%89%E8%A3%85%E5%B9%B6%E4%BD%BF%E7%94%A8eNSP/windows_kit.png&#34; alt=&#34;Windows 工具截图&#34; title=&#34;Windows 工具截图&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;3-下载Windows安装镜像&#34;&gt;&lt;a href=&#34;#3-下载Windows安装镜像&#34; class=&#34;headerlink&#34; title=&#34;3. 下载Windows安装镜像&#34;&gt;&lt;/a&gt;3. 下载Windows安装镜像&lt;/h2&gt;&lt;h3 id=&#34;官方下载&#34;&gt;&lt;a href=&#34;#官方下载&#34; class=&#34;headerlink&#34; title=&#34;官方下载&#34;&gt;&lt;/a&gt;官方下载&lt;/h3&gt;&lt;p&gt;在微软官网的下载中心选择Windows 10或者&lt;a href=&#34;https://www.microsoft.com/zh-cn/software-download/windows10&#34;&gt;点击此处&lt;/a&gt;，见到下面的网页。&lt;br&gt;&lt;img src=&#34;/images/Hyper-V%E5%AE%89%E8%A3%85%E5%B9%B6%E4%BD%BF%E7%94%A8eNSP/microsoft_download.png&#34; alt=&#34;Microsoft下载&#34; title=&#34;Microsoft下载&#34;&gt;&lt;br&gt;选择&lt;code&gt;创建 Windows 10 安装媒体&lt;/code&gt;下的&lt;code&gt;立即下载&lt;/code&gt;，下载获得一个&lt;code&gt;MediaCreationTool_22H2.exe&lt;/code&gt;的程序，打开该程序会出现如下窗口，如果没有并弹出许可下载有问题，请检查设备网络状态。&lt;br&gt;&lt;img src=&#34;/images/Hyper-V%E5%AE%89%E8%A3%85%E5%B9%B6%E4%BD%BF%E7%94%A8eNSP/win10_official_download.png&#34; alt=&#34;win10 官方下载&#34; title=&#34;win10 官方安装程序&#34;&gt;&lt;br&gt;接受完许可条款软件会询问想要执行的操作选择&lt;code&gt;为另一台电脑创建安装介质（U盘、DVD或ISO文件）&lt;/code&gt;，然后根据需求选择安装的系统的语言，版本保持默认不要修改为Windows 10 家庭单语言版，家庭单语言版会有一定的功能缺失，体系结构不要改为32位，32位的系统会导致一些应用无法使用，所以尽量保持64位即可。&lt;br&gt;接下来就选择ISO文件并选择镜像下载的路径即可。&lt;/p&gt;
+&lt;h3 id=&#34;第三方下载&#34;&gt;&lt;a href=&#34;#第三方下载&#34; class=&#34;headerlink&#34; title=&#34;第三方下载&#34;&gt;&lt;/a&gt;第三方下载&lt;/h3&gt;&lt;p&gt;在这里推荐到&lt;a href=&#34;https://next.itellyou.cn/Original&#34;&gt;NEXT, ITELLYOU&lt;/a&gt;下载，网站界面如下。&lt;br&gt;&lt;img src=&#34;/images/Hyper-V%E5%AE%89%E8%A3%85%E5%B9%B6%E4%BD%BF%E7%94%A8eNSP/NEXT,%20ITELLYOU.png&#34; alt=&#34;NEXT, ITELLYOU界面&#34; title=&#34;NEXT, ITELLYOU界面&#34;&gt;&lt;br&gt;然后选择Windows 10中的22H2的&lt;code&gt;Windows 10 (consumer editions), version 22H2 (updated Aug 2025) (x64) - DVD (Chinese-Simplified)&lt;/code&gt;下载，复制自己的下载器支持的下载连接，这个资源站支持ED2K和BT下载，这里不过多介绍。&lt;/p&gt;
+&lt;h2 id=&#34;4-在Hyper-V中创建虚拟机&#34;&gt;&lt;a href=&#34;#4-在Hyper-V中创建虚拟机&#34; class=&#34;headerlink&#34; title=&#34;4. 在Hyper-V中创建虚拟机&#34;&gt;&lt;/a&gt;4. 在Hyper-V中创建虚拟机&lt;/h2&gt;&lt;p&gt;首先打开&lt;code&gt;Hyper-V管理器&lt;/code&gt;可以看到如下界面，由于我已经安装了一个win10的虚拟机所以虚拟机中有条目。&lt;br&gt;&lt;img src=&#34;/images/Hyper-V%E5%AE%89%E8%A3%85%E5%B9%B6%E4%BD%BF%E7%94%A8eNSP/hyper-v_info.png&#34; alt=&#34;Hpyer-V info&#34; title=&#34;Hyper-V管理器的界面&#34;&gt;&lt;br&gt;点击右侧的&lt;code&gt;新建-&amp;gt;虚拟机&lt;/code&gt;创建虚拟机，虽然右侧有&lt;code&gt;快速创建...&lt;/code&gt;，但不方便后续的虚拟机的参数的调整。&lt;br&gt;在&lt;code&gt;指定名称和位置&lt;/code&gt;部分名称尽量设为自己易记的英文字符（&lt;strong&gt;不要带空格&lt;/strong&gt;），方便后面的部分使用，设置路径前先把&lt;code&gt;将虚拟机存储在其它位置&lt;/code&gt;的复选框勾上，路径尽量设为除C盘外的路径。由于eNSP对电脑的性能有一定的要求，&lt;strong&gt;建议内存部分分配8GB（8192MB）&lt;/strong&gt;。&lt;br&gt;&lt;code&gt;配置网络&lt;/code&gt;中的连接选择&lt;code&gt;Default Switch&lt;/code&gt;，否则虚拟机中没有因特网。Windows 10最低配置要求硬盘空间要不少于20GB，所以虚拟磁盘大小设为不少于20GB，&lt;strong&gt;推荐设为60GB&lt;/strong&gt;，方便后续软件安装。&lt;br&gt;在安装选项中选择&lt;code&gt;从可启动的CD/DVD-ROM安装操作系统&lt;/code&gt;，然后选择&lt;code&gt;映像文件&lt;/code&gt;，将下载的Windows安装镜像路径填入输入框中。完成后会虚拟机处出现新创建的虚拟机，就如上面的图片所示。&lt;/p&gt;
+&lt;h2 id=&#34;5-安装Windows&#34;&gt;&lt;a href=&#34;#5-安装Windows&#34; class=&#34;headerlink&#34; title=&#34;5. 安装Windows&#34;&gt;&lt;/a&gt;5. 安装Windows&lt;/h2&gt;&lt;p&gt;双击或者选中这个虚拟机点击&lt;code&gt;连接...&lt;/code&gt;打开新窗口，点击窗口中的启动按钮，并按键盘上的任意键，如果出现IPv4等字样点击&lt;code&gt;操作(A)&lt;/code&gt;中的&lt;code&gt;Ctrl + Alt + Delete(C)&lt;/code&gt;或按下快捷键&lt;code&gt;Ctrl + Alt + End&lt;/code&gt;后按下键盘上的任意键进入系统安装的流程。&lt;br&gt;引导进入后选择现在安装，我没有安装密钥，选择安装的版本（个人推荐安装专业版），自定义，现在安装等待即可，中途会重启几次这是正常现象。&lt;br&gt;接着进入OOBE界面，具体流程可以参考视频。&lt;a href=&#34;https://www.bilibili.com/video/BV1UtbxeDELK/&#34;&gt;参考视频链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;6-启用Hyper-V的嵌套虚拟化（重要）&#34;&gt;&lt;a href=&#34;#6-启用Hyper-V的嵌套虚拟化（重要）&#34; class=&#34;headerlink&#34; title=&#34;6. 启用Hyper-V的嵌套虚拟化（重要）&#34;&gt;&lt;/a&gt;6. 启用Hyper-V的嵌套虚拟化（重要）&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;由于Hyper-V默认关闭嵌套虚拟化，会导致在仿真时&lt;strong&gt;导致虚拟机彻底卡死&lt;/strong&gt;，所以这步十分重要。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在创建好虚拟机后在物理机以管理员权限运行powershell，如果忘记虚拟机的名字，可以在powershell中执行下面的命令并查看虚拟机的状态。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;Get-VM
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;powershell将会输出如下的内容。&lt;br&gt;&lt;img src=&#34;/images/Hyper-V%E5%AE%89%E8%A3%85%E5%B9%B6%E4%BD%BF%E7%94%A8eNSP/powershell_output.png&#34; alt=&#34;powershell output&#34; title=&#34;powershell 输出&#34;&gt;&lt;/p&gt;
+&lt;p&gt;请确保State下要启用虚拟化的虚拟机处于关闭状态（off），然后在powershell中输入下面的指令，其中&lt;strong&gt;把指令中的&lt;code&gt;&amp;lt;VMName&amp;gt;&lt;/code&gt;替换为虚拟机的名字&lt;/strong&gt;。更高级的操作可以参考&lt;a href=&#34;https://learn.microsoft.com/zh-cn/windows-server/virtualization/hyper-v/enable-nested-virtualization&#34;&gt;微软官方文档&lt;/a&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-powershell&#34;&gt;Set-VMProcessor -VMName &amp;lt;VMName&amp;gt; -ExposeVirtualizationExtensions $true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在执行完操作后，再次启动虚拟机进行后续操作。&lt;br&gt;如果要终止嵌套虚拟化将末尾的&lt;code&gt;$true&lt;/code&gt;换位&lt;code&gt;$false&lt;/code&gt;即可。&lt;/p&gt;
+&lt;h2 id=&#34;7-安装eNSP&#34;&gt;&lt;a href=&#34;#7-安装eNSP&#34; class=&#34;headerlink&#34; title=&#34;7. 安装eNSP&#34;&gt;&lt;/a&gt;7. 安装eNSP&lt;/h2&gt;&lt;p&gt;网上有许多教程，仅提供安装顺序。&lt;br&gt;下面这些软件可以乱序安装，VirtualBox选择5.5版本左右，不要太新否则不支持。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;WinPcap&lt;br&gt;VirtualBox&lt;br&gt;Wireshark&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;eNSP最后安装，接着测试是否可以使用，我自己测试时可以正常运行。&lt;/p&gt;
+</content>
+        <updated>2025-09-07T13:51:10.936Z</updated>
+    </entry>
+    <entry>
+        <id>http://example.com/2025/08/28/hello-world/</id>
+        <title>v0.1.0bata公告</title>
+        <link rel="alternate" href="http://example.com/2025/08/28/hello-world/"/>
+        <content type="html">&lt;p&gt;目前本站正在调试中，此界面为临时站点，测试是否能正常使用。&lt;/p&gt;
+</content>
+        <updated>2025-08-28T09:19:53.138Z</updated>
+    </entry>
+</feed>

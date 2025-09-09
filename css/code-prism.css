@@ -1,0 +1,116 @@
+/* ========================
+   Prism 高亮 + MacOS 窗口风格
+   ======================== */
+
+/* 代码块容器 */
+.code-block, pre[class*="language-"] {
+  position: relative;
+  border-radius: 10px;
+  margin: 20px 0;
+  overflow: hidden;
+  font-family: 'Monaco', monospace;
+  background: #1e1e2f; /* 深色背景 */
+  text-shadow: none !important; /* 去掉 Prism 自带阴影 */
+  color: #f8f8f2; /* 默认文字颜色 */
+}
+
+/* MacOS 顶部按钮条 */
+.code-block .code-header,
+pre.code-block .code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2c2c3a;
+  padding: 6px 12px;
+  height: 30px;
+  box-sizing: border-box;
+}
+
+/* 红黄绿按钮 */
+.code-block .dots, pre.code-block .dots {
+  display: flex;
+  gap: 6px;
+}
+.code-block .dot, pre.code-block .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.code-block .red, pre.code-block .red { background: #ff5f57; }
+.code-block .yellow, pre.code-block .yellow { background: #ffbd2e; }
+.code-block .green, pre.code-block .green { background: #27c93f; }
+
+/* 复制按钮 */
+.code-block .copy-btn, pre.code-block .copy-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* 代码内容 */
+.code-block pre, pre[class*="language-"] {
+  padding: 40px 20px 20px 60px; /* 顶部留给 header */
+  margin: 0;
+  overflow-x: auto;
+  font-family: 'Monaco', monospace;
+  font-size: 14px;
+  text-shadow: none !important;
+  line-height: 1.5;
+}
+
+/* 行号插件 */
+pre[class*="line-numbers"] {
+  padding-left: 60px; /* 左侧留行号空间 */
+  counter-reset: linenumber;
+}
+
+pre[class*="line-numbers"] .line-numbers-rows {
+  position: absolute;
+  top: 40px; /* 与 header 对齐 */
+  left: 20px;
+  width: 30px;
+  text-align: right;
+  user-select: none;
+}
+
+pre[class*="line-numbers"] .line-numbers-rows span {
+  display: block;
+  color: #fff; /* 行号白色 */
+}
+
+/* Prism token 高亮 */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata { color: #999; }
+.token.punctuation { color: #f8f8f2; }
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted { color: #f92672; }
+.token.boolean,
+.token.number { color: #ae81ff; }
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted { color: #a6e22e; }
+.token.operator,
+.token.entity,
+.token.url,
+.token.variable { color: #f8f8f2; }
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name { color: #e6db74; }
+.token.keyword { color: #66d9ef; }
+.token.regex,
+.token.important { color: #fd971f; }
+.token.bold { font-weight: bold; }
+.token.italic { font-style: italic; }
+.token.deleted { text-decoration: line-through; }
+.token.inserted { text-decoration: underline; }
