@@ -387,8 +387,8 @@ footer {
   }
 }
 
-/* 当屏幕宽度小于 1665px 时隐藏目录 */
-@media (max-width: 1665px) {
+/* 当屏幕宽度小于 1800px 时隐藏目录 */
+@media (max-width: 18080x) {
   .post-toc {
     display: none;
   }
