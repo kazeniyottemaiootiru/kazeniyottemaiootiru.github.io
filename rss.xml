@@ -5,8 +5,47 @@
         <link>http://example.com</link>
         <description></description>
         <language>zh</language>
-        <pubDate>Sun, 07 Sep 2025 21:51:10 +0800</pubDate>
-        <lastBuildDate>Sun, 07 Sep 2025 21:51:10 +0800</lastBuildDate>
+        <pubDate>Wed, 10 Sep 2025 21:10:50 +0800</pubDate>
+        <lastBuildDate>Wed, 10 Sep 2025 21:10:50 +0800</lastBuildDate>
+        <item>
+            <guid isPermalink="true">http://example.com/2025/09/10/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/</guid>
+            <title>kali Linux汉化和换源</title>
+            <link>http://example.com/2025/09/10/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/</link>
+            <pubDate>Wed, 10 Sep 2025 21:10:50 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;汉化&#34;&gt;&lt;a href=&#34;#汉化&#34; class=&#34;headerlink&#34; title=&#34;汉化&#34;&gt;&lt;/a&gt;汉化&lt;/h2&gt;&lt;p&gt;打开kali Linux的终端输入下面的指令&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo dpkg-reconfigure locales
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;然后输入当前用户的密码，输入密码的时候终端会没有输出，但输入是会记录的，接着终端出现如下界面&lt;br&gt;&lt;img src=&#34;/images/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/kalishell.png&#34; alt=&#34;kali终端界面&#34; title=&#34;kali终端界面&#34;&gt;&lt;br&gt;按下键盘方向键右键或者方向键下键找到&lt;code&gt;zh_CN.UTF-8 UTF-8&lt;/code&gt;（简体中文）&lt;strong&gt;按下空格键&lt;/strong&gt;，当出现&lt;code&gt;*&lt;/code&gt;时，说明已经选中，就如下图所示&lt;br&gt;&lt;img src=&#34;/images/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/kalishelllang.png&#34; alt=&#34;kali选择简中&#34; title=&#34;kali选择简中&#34;&gt;&lt;br&gt;按下回车键后会出现如下界面，如果在这个界面没有&lt;code&gt;zh_CN.UTF-8&lt;/code&gt;按下键盘上的方向键右键选中&lt;code&gt;&amp;lt;Cancel&amp;gt;&lt;/code&gt;返回上一步。&lt;br&gt;&lt;img src=&#34;/images/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/chooseLangPage.png&#34; alt=&#34;选择语言包&#34; title=&#34;选择语言包&#34;&gt;&lt;br&gt;然后按下键盘上的方向键下键选择&lt;code&gt;zh_CN.UTF-8&lt;/code&gt;，然后按下键盘上的&lt;strong&gt;方向键右键&lt;/strong&gt;，当&lt;code&gt;&amp;lt;Ok&amp;gt;&lt;/code&gt;被红色高亮时按下回车键等待一段时间后，终端会出现下面的内容&lt;br&gt;&lt;img src=&#34;/images/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/shellOutput.png&#34; alt=&#34;shell输出&#34; title=&#34;shell输出&#34;&gt;&lt;br&gt;然后在终端输入下面的指令重启设备即可完成汉化。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;reboot
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;重启后会出现如下界面，可根据需求修改，建议不要修改并勾上不再提醒，否则会导致输入指令切换输入法导致效率低效。&lt;br&gt;&lt;img src=&#34;/images/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/rename.png&#34; alt=&#34;重命名文件&#34; title=&#34;重命名文件&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;换源&#34;&gt;&lt;a href=&#34;#换源&#34; class=&#34;headerlink&#34; title=&#34;换源&#34;&gt;&lt;/a&gt;换源&lt;/h2&gt;&lt;p&gt;由于一些特殊的原因，使用kali Linux的默认源下载东西可能很慢或者无法使用，所以需要切换为国内的镜像源。首先打开终端在终端中输入如下指令。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo nano /etc/apt/sources.list
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;指令中的&lt;code&gt;nano&lt;/code&gt;可以切换为自己熟悉且习惯的文本编辑器如vim或者kali Linux的图形化文本编辑器Mousepad，但输入的时候要输入&lt;code&gt;mousepad&lt;/code&gt;，这里使用nano演示，输入指令后窗口会变为如下界面&lt;br&gt;&lt;img src=&#34;/images/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/nanoWindow.png&#34; alt=&#34;nano窗口&#34; title=&#34;nano窗口&#34;&gt;&lt;br&gt;先将kali的默认源注释，即将光标定位到&lt;code&gt;deb&lt;/code&gt;前然后加上&lt;code&gt;#&lt;/code&gt;即可，接着将光标定位到末尾按下回车键，然后在加入下面的镜像源，这里整理了两个镜像源，按照需求添加即可，为了复制方便我将其分为两个代码块，&lt;strong&gt;由于nano是基于终端的粘贴的时候不是&lt;code&gt;ctrl + v&lt;/code&gt;而是&lt;code&gt;ctrl + shift + v&lt;/code&gt;，否则会导致粘贴错误。&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 阿里源
+deb http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
+deb-src http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# 清华源
+deb http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main contrib non-free
+deb-src https://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main contrib non-free
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;添加完毕后按&lt;code&gt;ctrl + o&lt;/code&gt;写入然后回车再按&lt;code&gt;ctrl + x&lt;/code&gt;退出nano，接着更新软件包列表，在终端输入下面的指令&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo apt update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;输入法安装&#34;&gt;&lt;a href=&#34;#输入法安装&#34; class=&#34;headerlink&#34; title=&#34;输入法安装&#34;&gt;&lt;/a&gt;输入法安装&lt;/h2&gt;&lt;p&gt;由于英文版的kali Linux是没有中文输入法的，有时会使用不便，这时就要安装中文输入法了。首先打开终端输入下面的指令更新软件列表。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo apt update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;等待更新完毕后输入&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo apt-get install fcitx fcitx-pinyin
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;进行安装，其中会提示是否安装，输入y即可。安装完毕后点击左上角的菜单键然后选择常用程序，展开设置找到输入法，界面如下图所示&lt;br&gt;&lt;img src=&#34;/images/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/inputSetting.png&#34; alt=&#34;输入法设置位置&#34; title=&#34;输入法设置位置&#34;&gt;&lt;br&gt;接下来连续都点击确认，将fcitx选上，然后确定，接着点击全部应用程序在菜单的搜索框中输入fcitx配置出现如下界面&lt;br&gt;&lt;img src=&#34;/images/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/FcitxSetting.png&#34; alt=&#34;fcitx配置&#34; title=&#34;fcitx配置&#34;&gt;&lt;br&gt;点击底部最后一个按钮把键盘布局设为英语（美国）即可如果想要开机默认使用拼音输入法，也可以选择拼音然后点击底部从左到右的第三个按钮将其移到顶部，切换语言输入按&lt;code&gt;ctrl + space（空格）&lt;/code&gt;（默认）切换，也可以在全局配置中修改为自己习惯的按键。最后在终端输入&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;reboot
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;重启系统即可使用。&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">http://example.com/2025/09/07/Hyper-V%E5%AE%89%E8%A3%85%E5%B9%B6%E4%BD%BF%E7%94%A8eNSP/</guid>
             <title>Hyper-V安装并使用eNSP</title>

@@ -1,0 +1,105 @@
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+  <title>kali Linux汉化和换源</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/clean.js"></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<header class="topbar">
+  <!--div class="logo"><a href="/">風によって舞いお落ちる的blog</a></div-->
+  <div class="logo"><a target="_blank" rel="noopener" href="https://github.com/kazeniyottemaiootiru">風によって舞いお落ちる的blog</a></div>
+  <nav>
+    
+      <a href="/">Home</a>
+    
+      <a href="/categories">Categories</a>
+    
+      <a href="/tags">Tags</a>
+    
+      <a href="/about">About</a>
+    
+  </nav>
+</header>
+
+
+<main class="post-page">
+  <div class="mask"></div>
+  <div class="post-layout">
+    <div class="post-container">
+      <h1>kali Linux汉化和换源</h1>
+      <p class="post-meta">2025-09-10</p>
+      <div class="post-content">
+        <h2 id="汉化"><a href="#汉化" class="headerlink" title="汉化"></a>汉化</h2><p>打开kali Linux的终端输入下面的指令</p>
+<pre><code class="language-bash">sudo dpkg-reconfigure locales
+</code></pre>
+<p>然后输入当前用户的密码，输入密码的时候终端会没有输出，但输入是会记录的，接着终端出现如下界面<br><img src="/images/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/kalishell.png" alt="kali终端界面" title="kali终端界面"><br>按下键盘方向键右键或者方向键下键找到<code>zh_CN.UTF-8 UTF-8</code>（简体中文）<strong>按下空格键</strong>，当出现<code>*</code>时，说明已经选中，就如下图所示<br><img src="/images/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/kalishelllang.png" alt="kali选择简中" title="kali选择简中"><br>按下回车键后会出现如下界面，如果在这个界面没有<code>zh_CN.UTF-8</code>按下键盘上的方向键右键选中<code>&lt;Cancel&gt;</code>返回上一步。<br><img src="/images/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/chooseLangPage.png" alt="选择语言包" title="选择语言包"><br>然后按下键盘上的方向键下键选择<code>zh_CN.UTF-8</code>，然后按下键盘上的<strong>方向键右键</strong>，当<code>&lt;Ok&gt;</code>被红色高亮时按下回车键等待一段时间后，终端会出现下面的内容<br><img src="/images/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/shellOutput.png" alt="shell输出" title="shell输出"><br>然后在终端输入下面的指令重启设备即可完成汉化。</p>
+<pre><code class="language-bash">reboot
+</code></pre>
+<p>重启后会出现如下界面，可根据需求修改，建议不要修改并勾上不再提醒，否则会导致输入指令切换输入法导致效率低效。<br><img src="/images/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/rename.png" alt="重命名文件" title="重命名文件"></p>
+<h2 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h2><p>由于一些特殊的原因，使用kali Linux的默认源下载东西可能很慢或者无法使用，所以需要切换为国内的镜像源。首先打开终端在终端中输入如下指令。</p>
+<pre><code class="language-bash">sudo nano /etc/apt/sources.list
+</code></pre>
+<p>指令中的<code>nano</code>可以切换为自己熟悉且习惯的文本编辑器如vim或者kali Linux的图形化文本编辑器Mousepad，但输入的时候要输入<code>mousepad</code>，这里使用nano演示，输入指令后窗口会变为如下界面<br><img src="/images/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/nanoWindow.png" alt="nano窗口" title="nano窗口"><br>先将kali的默认源注释，即将光标定位到<code>deb</code>前然后加上<code>#</code>即可，接着将光标定位到末尾按下回车键，然后在加入下面的镜像源，这里整理了两个镜像源，按照需求添加即可，为了复制方便我将其分为两个代码块，<strong>由于nano是基于终端的粘贴的时候不是<code>ctrl + v</code>而是<code>ctrl + shift + v</code>，否则会导致粘贴错误。</strong></p>
+<pre><code class="language-bash"># 阿里源
+deb http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
+deb-src http://mirrors.aliyun.com/kali kali-rolling main non-free contrib
+</code></pre>
+<pre><code class="language-bash"># 清华源
+deb http://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main contrib non-free
+deb-src https://mirrors.tuna.tsinghua.edu.cn/kali kali-rolling main contrib non-free
+</code></pre>
+<p>添加完毕后按<code>ctrl + o</code>写入然后回车再按<code>ctrl + x</code>退出nano，接着更新软件包列表，在终端输入下面的指令</p>
+<pre><code class="language-bash">sudo apt update
+</code></pre>
+<h2 id="输入法安装"><a href="#输入法安装" class="headerlink" title="输入法安装"></a>输入法安装</h2><p>由于英文版的kali Linux是没有中文输入法的，有时会使用不便，这时就要安装中文输入法了。首先打开终端输入下面的指令更新软件列表。</p>
+<pre><code class="language-bash">sudo apt update
+</code></pre>
+<p>等待更新完毕后输入</p>
+<pre><code class="language-bash">sudo apt-get install fcitx fcitx-pinyin
+</code></pre>
+<p>进行安装，其中会提示是否安装，输入y即可。安装完毕后点击左上角的菜单键然后选择常用程序，展开设置找到输入法，界面如下图所示<br><img src="/images/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/inputSetting.png" alt="输入法设置位置" title="输入法设置位置"><br>接下来连续都点击确认，将fcitx选上，然后确定，接着点击全部应用程序在菜单的搜索框中输入fcitx配置出现如下界面<br><img src="/images/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/FcitxSetting.png" alt="fcitx配置" title="fcitx配置"><br>点击底部最后一个按钮把键盘布局设为英语（美国）即可如果想要开机默认使用拼音输入法，也可以选择拼音然后点击底部从左到右的第三个按钮将其移到顶部，切换语言输入按<code>ctrl + space（空格）</code>（默认）切换，也可以在全局配置中修改为自己习惯的按键。最后在终端输入</p>
+<pre><code class="language-bash">reboot
+</code></pre>
+<p>重启系统即可使用。</p>
+
+      </div>
+    </div>
+
+    <!-- 目录 -->
+    <aside class="post-toc">
+      <div class="toc-header">
+        <span>目录</span>
+        <button class="toc-collapse">
+          <img src="/images/access/collapse.png" alt="collapse" class="collapse-icon">
+        </button>
+      </div>
+      <div class="toc-content">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%89%E5%8C%96"><span class="toc-text">汉化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%A2%E6%BA%90"><span class="toc-text">换源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%B3%95%E5%AE%89%E8%A3%85"><span class="toc-text">输入法安装</span></a></li></ol>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <p>© 2025 風によって舞いお落ちる的blog. All rights reserved.</p>
+</footer>
+
+
+<!-- Prism 样式 -->
+<link rel="stylesheet" href="/css/prism-tomorrow.min.css">
+<link rel="stylesheet" href="/css/prism-line-numbers.min.css">
+<link rel="stylesheet" href="/css/code.css">
+<link rel="stylesheet" href="/css/prism.css">
+
+<!-- Prism 高亮 -->
+<script src="/js/prism.min.js"></script>
+<script src="/js/prism-line-numbers.min.js"></script>
+
+<!-- TOC 折叠 JS -->
+<script src="/js/toc.js"></script>
+
+<!-- 代码复制 JS -->
+<script src="/js/code.js"></script>
+<script src="/js/prism.js"></script>
