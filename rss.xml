@@ -5,8 +5,70 @@
         <link>http://example.com</link>
         <description></description>
         <language>zh</language>
-        <pubDate>Wed, 10 Sep 2025 21:10:50 +0800</pubDate>
-        <lastBuildDate>Wed, 10 Sep 2025 21:10:50 +0800</lastBuildDate>
+        <pubDate>Sun, 26 Oct 2025 20:24:18 +0800</pubDate>
+        <lastBuildDate>Sun, 26 Oct 2025 20:24:18 +0800</lastBuildDate>
+        <item>
+            <guid isPermalink="true">http://example.com/2025/10/26/centos%E5%AE%89%E8%A3%85MySQL/</guid>
+            <title>centos安装MySQL（外部导入rpm包）</title>
+            <link>http://example.com/2025/10/26/centos%E5%AE%89%E8%A3%85MySQL/</link>
+            <pubDate>Sun, 26 Oct 2025 20:24:18 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;安装步骤&#34;&gt;&lt;a href=&#34;#安装步骤&#34; class=&#34;headerlink&#34; title=&#34;安装步骤&#34;&gt;&lt;/a&gt;安装步骤&lt;/h2&gt;&lt;p&gt;首先去&lt;a href=&#34;https://dev.mysql.com/downloads/repo/yum/&#34;&gt;MySQL yum源官网&lt;/a&gt;查看rpm源的文件名，然后下载Yum源&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;wget https://repo.mysql.com/mysql84-community-release-el10-2.noarch.rpm 
+# mysql84-community-release-el10-2.noarch.rpm替换为官方的文件名
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;然后执行&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo rpm -ivh $filename # $filename替换为文件名
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;接着执行&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo yum install mysql  # 安装服务端
+sudo yum install mysql-community-server # 安装MySQL服务端
+systemctl start mysqld  # 启动mysqld服务
+systemctl enable mysqld # 开机自启
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;创建账户&#34;&gt;&lt;a href=&#34;#创建账户&#34; class=&#34;headerlink&#34; title=&#34;创建账户&#34;&gt;&lt;/a&gt;创建账户&lt;/h2&gt;&lt;p&gt;账户密码肯定要修改，首先执行&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo cat /var/log/mysqld.log
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;找到&lt;code&gt;root@localhost&lt;/code&gt;字样的地方会出现&lt;code&gt;root@localhost: password&lt;/code&gt;，接着使用&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql -uroot -p # 简单登录
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;后输入刚刚看到的密码即可登录，登录后使用下面的代码执行密码重置&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;ALTER USER &amp;#39;root&amp;#39;@&amp;#39;localhost&amp;#39; IDENTIFIED BY &amp;#39;PASSWORD&amp;#39; -- 密码要包括大小写，符号，数字
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;当输出&lt;code&gt;Query OK&lt;/code&gt;即修改完成，接着输入&lt;code&gt;quit&lt;/code&gt;或者&lt;code&gt;exit&lt;/code&gt;退出MySQL当前状态，再重新使用下面的指令重新进入MySQL。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;mysql -h localhost -u root -P 3306 -p   
+# 参数解释
+# -h mysql连接地址
+# -u 用户名
+# -P （异于-p）MySQL的端口号（默认3306）
+# -p （异于-P）使用密码登录MySQL
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;输入密码登录MySQL即可使用。&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">http://example.com/2025/10/26/linux%E5%AE%89%E8%A3%85vmtools/</guid>
+            <title>linux（以CentOS为例）安装vmtools</title>
+            <link>http://example.com/2025/10/26/linux%E5%AE%89%E8%A3%85vmtools/</link>
+            <pubDate>Sun, 26 Oct 2025 20:24:18 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;准备工作&#34;&gt;&lt;a href=&#34;#准备工作&#34; class=&#34;headerlink&#34; title=&#34;准备工作&#34;&gt;&lt;/a&gt;准备工作&lt;/h2&gt;&lt;p&gt;先将vmtools挂载上，然后执行&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ls /dev | grep cdrom
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;查看有没有cdrom目录。通常情况下是有的，然后将其挂载，我是将其挂载到home目录下的cdrom文件夹中，&lt;code&gt;~/cdrom&lt;/code&gt;根据自己需求修改。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo mount /dev/cdrom ~/cdrom
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;安装vmtool&#34;&gt;&lt;a href=&#34;#安装vmtool&#34; class=&#34;headerlink&#34; title=&#34;安装vmtool&#34;&gt;&lt;/a&gt;安装vmtool&lt;/h2&gt;&lt;p&gt;先安装一些依赖项&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum -y install perl gcc make kernel-headers kernel-devel    # 用自己安装的Linux发行版的包管理器
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;安装完毕后进入cdrom目录拷贝一个&lt;code&gt;*.tar.gz&lt;/code&gt;的文件到自己熟悉的地方并解压，找到并运行&lt;code&gt;vmware-install.pl&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;出现问题并解决&#34;&gt;&lt;a href=&#34;#出现问题并解决&#34; class=&#34;headerlink&#34; title=&#34;出现问题并解决&#34;&gt;&lt;/a&gt;出现问题并解决&lt;/h2&gt;&lt;p&gt;如果出现下面&lt;code&gt;What is the directory that contains the init directories (rc0.d/ to rc6.d/)?&lt;/code&gt;的情况，可以新开一个终端依次执行下面的指令&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd /etc
+mkdir init.d
+cd init.d
+for i in &amp;#123;0,1,2,3,4,5,6&amp;#125;; do mkdir rc$i.d; done # 在当前文件夹下依次创建文件夹
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;创建完毕后返回安装的终端输入&lt;code&gt;/etc/init.d&lt;/code&gt;回车即可&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">http://example.com/2025/09/10/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/</guid>
             <title>kali Linux汉化和换源</title>

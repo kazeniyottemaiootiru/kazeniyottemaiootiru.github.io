@@ -5,6 +5,22 @@
     "home_page_url": "http://example.com",
     "items": [
         {
+            "id": "http://example.com/2025/10/26/centos%E5%AE%89%E8%A3%85MySQL/",
+            "url": "http://example.com/2025/10/26/centos%E5%AE%89%E8%A3%85MySQL/",
+            "title": "centos安装MySQL（外部导入rpm包）",
+            "date_published": "2025-10-26T12:24:18.822Z",
+            "content_html": "<h2 id=\"安装步骤\"><a href=\"#安装步骤\" class=\"headerlink\" title=\"安装步骤\"></a>安装步骤</h2><p>首先去<a href=\"https://dev.mysql.com/downloads/repo/yum/\">MySQL yum源官网</a>查看rpm源的文件名，然后下载Yum源</p>\n<pre><code class=\"language-bash\">wget https://repo.mysql.com/mysql84-community-release-el10-2.noarch.rpm \n# mysql84-community-release-el10-2.noarch.rpm替换为官方的文件名\n</code></pre>\n<p>然后执行</p>\n<pre><code class=\"language-bash\">sudo rpm -ivh $filename # $filename替换为文件名\n</code></pre>\n<p>接着执行</p>\n<pre><code class=\"language-bash\">sudo yum install mysql  # 安装服务端\nsudo yum install mysql-community-server # 安装MySQL服务端\nsystemctl start mysqld  # 启动mysqld服务\nsystemctl enable mysqld # 开机自启\n</code></pre>\n<h2 id=\"创建账户\"><a href=\"#创建账户\" class=\"headerlink\" title=\"创建账户\"></a>创建账户</h2><p>账户密码肯定要修改，首先执行</p>\n<pre><code class=\"language-bash\">sudo cat /var/log/mysqld.log\n</code></pre>\n<p>找到<code>root@localhost</code>字样的地方会出现<code>root@localhost: password</code>，接着使用</p>\n<pre><code class=\"language-bash\">mysql -uroot -p # 简单登录\n</code></pre>\n<p>后输入刚刚看到的密码即可登录，登录后使用下面的代码执行密码重置</p>\n<pre><code class=\"language-sql\">ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;PASSWORD&#39; -- 密码要包括大小写，符号，数字\n</code></pre>\n<p>当输出<code>Query OK</code>即修改完成，接着输入<code>quit</code>或者<code>exit</code>退出MySQL当前状态，再重新使用下面的指令重新进入MySQL。</p>\n<pre><code class=\"language-bash\">mysql -h localhost -u root -P 3306 -p   \n# 参数解释\n# -h mysql连接地址\n# -u 用户名\n# -P （异于-p）MySQL的端口号（默认3306）\n# -p （异于-P）使用密码登录MySQL\n</code></pre>\n<p>输入密码登录MySQL即可使用。</p>\n",
+            "tags": []
+        },
+        {
+            "id": "http://example.com/2025/10/26/linux%E5%AE%89%E8%A3%85vmtools/",
+            "url": "http://example.com/2025/10/26/linux%E5%AE%89%E8%A3%85vmtools/",
+            "title": "linux（以CentOS为例）安装vmtools",
+            "date_published": "2025-10-26T12:24:18.819Z",
+            "content_html": "<h2 id=\"准备工作\"><a href=\"#准备工作\" class=\"headerlink\" title=\"准备工作\"></a>准备工作</h2><p>先将vmtools挂载上，然后执行</p>\n<pre><code class=\"language-bash\">ls /dev | grep cdrom\n</code></pre>\n<p>查看有没有cdrom目录。通常情况下是有的，然后将其挂载，我是将其挂载到home目录下的cdrom文件夹中，<code>~/cdrom</code>根据自己需求修改。</p>\n<pre><code class=\"language-bash\">sudo mount /dev/cdrom ~/cdrom\n</code></pre>\n<h2 id=\"安装vmtool\"><a href=\"#安装vmtool\" class=\"headerlink\" title=\"安装vmtool\"></a>安装vmtool</h2><p>先安装一些依赖项</p>\n<pre><code class=\"language-bash\">yum -y install perl gcc make kernel-headers kernel-devel    # 用自己安装的Linux发行版的包管理器\n</code></pre>\n<p>安装完毕后进入cdrom目录拷贝一个<code>*.tar.gz</code>的文件到自己熟悉的地方并解压，找到并运行<code>vmware-install.pl</code></p>\n<h2 id=\"出现问题并解决\"><a href=\"#出现问题并解决\" class=\"headerlink\" title=\"出现问题并解决\"></a>出现问题并解决</h2><p>如果出现下面<code>What is the directory that contains the init directories (rc0.d/ to rc6.d/)?</code>的情况，可以新开一个终端依次执行下面的指令</p>\n<pre><code class=\"language-bash\">cd /etc\nmkdir init.d\ncd init.d\nfor i in &#123;0,1,2,3,4,5,6&#125;; do mkdir rc$i.d; done # 在当前文件夹下依次创建文件夹\n</code></pre>\n<p>创建完毕后返回安装的终端输入<code>/etc/init.d</code>回车即可</p>\n",
+            "tags": []
+        },
+        {
             "id": "http://example.com/2025/09/10/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/",
             "url": "http://example.com/2025/09/10/kali%E6%B1%89%E5%8C%96%E5%92%8C%E6%8D%A2%E6%BA%90/",
             "title": "kali Linux汉化和换源",

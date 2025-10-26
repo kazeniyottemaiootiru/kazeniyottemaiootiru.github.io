@@ -1,0 +1,90 @@
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+  <title>linux（以CentOS为例）安装vmtools</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/clean.js"></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<header class="topbar">
+  <!--div class="logo"><a href="/">風によって舞いお落ちる的blog</a></div-->
+  <div class="logo"><a target="_blank" rel="noopener" href="https://github.com/kazeniyottemaiootiru">風によって舞いお落ちる的blog</a></div>
+  <nav>
+    
+      <a href="/">Home</a>
+    
+      <a href="/categories">Categories</a>
+    
+      <a href="/tags">Tags</a>
+    
+      <a href="/about">About</a>
+    
+  </nav>
+</header>
+
+
+<main class="post-page">
+  <div class="mask"></div>
+  <div class="post-layout">
+    <div class="post-container">
+      <h1>linux（以CentOS为例）安装vmtools</h1>
+      <p class="post-meta">2025-10-26</p>
+      <div class="post-content">
+        <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>先将vmtools挂载上，然后执行</p>
+<pre><code class="language-bash">ls /dev | grep cdrom
+</code></pre>
+<p>查看有没有cdrom目录。通常情况下是有的，然后将其挂载，我是将其挂载到home目录下的cdrom文件夹中，<code>~/cdrom</code>根据自己需求修改。</p>
+<pre><code class="language-bash">sudo mount /dev/cdrom ~/cdrom
+</code></pre>
+<h2 id="安装vmtool"><a href="#安装vmtool" class="headerlink" title="安装vmtool"></a>安装vmtool</h2><p>先安装一些依赖项</p>
+<pre><code class="language-bash">yum -y install perl gcc make kernel-headers kernel-devel    # 用自己安装的Linux发行版的包管理器
+</code></pre>
+<p>安装完毕后进入cdrom目录拷贝一个<code>*.tar.gz</code>的文件到自己熟悉的地方并解压，找到并运行<code>vmware-install.pl</code></p>
+<h2 id="出现问题并解决"><a href="#出现问题并解决" class="headerlink" title="出现问题并解决"></a>出现问题并解决</h2><p>如果出现下面<code>What is the directory that contains the init directories (rc0.d/ to rc6.d/)?</code>的情况，可以新开一个终端依次执行下面的指令</p>
+<pre><code class="language-bash">cd /etc
+mkdir init.d
+cd init.d
+for i in &#123;0,1,2,3,4,5,6&#125;; do mkdir rc$i.d; done # 在当前文件夹下依次创建文件夹
+</code></pre>
+<p>创建完毕后返回安装的终端输入<code>/etc/init.d</code>回车即可</p>
+
+      </div>
+    </div>
+
+    <!-- 目录 -->
+    <aside class="post-toc">
+      <div class="toc-header">
+        <span>目录</span>
+        <button class="toc-collapse">
+          <img src="/images/access/collapse.png" alt="collapse" class="collapse-icon">
+        </button>
+      </div>
+      <div class="toc-content">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85vmtool"><span class="toc-text">安装vmtool</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E5%B9%B6%E8%A7%A3%E5%86%B3"><span class="toc-text">出现问题并解决</span></a></li></ol>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <p>© 2025 風によって舞いお落ちる的blog. All rights reserved.</p>
+</footer>
+
+
+<!-- Prism 样式 -->
+<link rel="stylesheet" href="/css/prism-tomorrow.min.css">
+<link rel="stylesheet" href="/css/prism-line-numbers.min.css">
+<link rel="stylesheet" href="/css/code.css">
+<link rel="stylesheet" href="/css/prism.css">
+
+<!-- Prism 高亮 -->
+<script src="/js/prism.min.js"></script>
+<script src="/js/prism-line-numbers.min.js"></script>
+
+<!-- TOC 折叠 JS -->
+<script src="/js/toc.js"></script>
+
+<!-- 代码复制 JS -->
+<script src="/js/code.js"></script>
+<script src="/js/prism.js"></script>

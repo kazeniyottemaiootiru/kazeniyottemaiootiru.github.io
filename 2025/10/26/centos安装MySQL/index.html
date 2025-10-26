@@ -1,0 +1,104 @@
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+  <title>centos安装MySQL（外部导入rpm包）</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/clean.js"></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<header class="topbar">
+  <!--div class="logo"><a href="/">風によって舞いお落ちる的blog</a></div-->
+  <div class="logo"><a target="_blank" rel="noopener" href="https://github.com/kazeniyottemaiootiru">風によって舞いお落ちる的blog</a></div>
+  <nav>
+    
+      <a href="/">Home</a>
+    
+      <a href="/categories">Categories</a>
+    
+      <a href="/tags">Tags</a>
+    
+      <a href="/about">About</a>
+    
+  </nav>
+</header>
+
+
+<main class="post-page">
+  <div class="mask"></div>
+  <div class="post-layout">
+    <div class="post-container">
+      <h1>centos安装MySQL（外部导入rpm包）</h1>
+      <p class="post-meta">2025-10-26</p>
+      <div class="post-content">
+        <h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><p>首先去<a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/repo/yum/">MySQL yum源官网</a>查看rpm源的文件名，然后下载Yum源</p>
+<pre><code class="language-bash">wget https://repo.mysql.com/mysql84-community-release-el10-2.noarch.rpm 
+# mysql84-community-release-el10-2.noarch.rpm替换为官方的文件名
+</code></pre>
+<p>然后执行</p>
+<pre><code class="language-bash">sudo rpm -ivh $filename # $filename替换为文件名
+</code></pre>
+<p>接着执行</p>
+<pre><code class="language-bash">sudo yum install mysql  # 安装服务端
+sudo yum install mysql-community-server # 安装MySQL服务端
+systemctl start mysqld  # 启动mysqld服务
+systemctl enable mysqld # 开机自启
+</code></pre>
+<h2 id="创建账户"><a href="#创建账户" class="headerlink" title="创建账户"></a>创建账户</h2><p>账户密码肯定要修改，首先执行</p>
+<pre><code class="language-bash">sudo cat /var/log/mysqld.log
+</code></pre>
+<p>找到<code>root@localhost</code>字样的地方会出现<code>root@localhost: password</code>，接着使用</p>
+<pre><code class="language-bash">mysql -uroot -p # 简单登录
+</code></pre>
+<p>后输入刚刚看到的密码即可登录，登录后使用下面的代码执行密码重置</p>
+<pre><code class="language-sql">ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;PASSWORD&#39; -- 密码要包括大小写，符号，数字
+</code></pre>
+<p>当输出<code>Query OK</code>即修改完成，接着输入<code>quit</code>或者<code>exit</code>退出MySQL当前状态，再重新使用下面的指令重新进入MySQL。</p>
+<pre><code class="language-bash">mysql -h localhost -u root -P 3306 -p   
+# 参数解释
+# -h mysql连接地址
+# -u 用户名
+# -P （异于-p）MySQL的端口号（默认3306）
+# -p （异于-P）使用密码登录MySQL
+</code></pre>
+<p>输入密码登录MySQL即可使用。</p>
+
+      </div>
+    </div>
+
+    <!-- 目录 -->
+    <aside class="post-toc">
+      <div class="toc-header">
+        <span>目录</span>
+        <button class="toc-collapse">
+          <img src="/images/access/collapse.png" alt="collapse" class="collapse-icon">
+        </button>
+      </div>
+      <div class="toc-content">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="toc-text">安装步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%B4%A6%E6%88%B7"><span class="toc-text">创建账户</span></a></li></ol>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <p>© 2025 風によって舞いお落ちる的blog. All rights reserved.</p>
+</footer>
+
+
+<!-- Prism 样式 -->
+<link rel="stylesheet" href="/css/prism-tomorrow.min.css">
+<link rel="stylesheet" href="/css/prism-line-numbers.min.css">
+<link rel="stylesheet" href="/css/code.css">
+<link rel="stylesheet" href="/css/prism.css">
+
+<!-- Prism 高亮 -->
+<script src="/js/prism.min.js"></script>
+<script src="/js/prism-line-numbers.min.js"></script>
+
+<!-- TOC 折叠 JS -->
+<script src="/js/toc.js"></script>
+
+<!-- 代码复制 JS -->
+<script src="/js/code.js"></script>
+<script src="/js/prism.js"></script>
