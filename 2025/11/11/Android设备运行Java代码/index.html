@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+  <title>Android设备运行Java代码</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/clean.js"></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<header class="topbar">
+  <!--div class="logo"><a href="/">風によって舞いお落ちる的blog</a></div-->
+  <div class="logo"><a target="_blank" rel="noopener" href="https://github.com/kazeniyottemaiootiru">風によって舞いお落ちる的blog</a></div>
+  <nav>
+    
+      <a href="/">Home</a>
+    
+      <a href="/categories">Categories</a>
+    
+      <a href="/tags">Tags</a>
+    
+      <a href="/about">About</a>
+    
+  </nav>
+</header>
+
+
+<main class="post-page">
+  <div class="mask"></div>
+  <div class="post-layout">
+    <div class="post-container">
+      <h1>Android设备运行Java代码</h1>
+      <p class="post-meta">2025-11-11</p>
+      <div class="post-content">
+        <p>Dalvik虚拟机（Android的Java子系统）是Android的Java虚拟机，当需要使用跨平台的时候就需要临时测试代码在Android上是否可行，但这玩意不支持class文件只支持dex类定义，就很烦。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><blockquote>
+<p>Windows平台推荐使用PowerShell，用cmd可能会出现无法生成dex文件的情况。</p>
+</blockquote>
+<h3 id="1-下载ADB（安卓调试桥）"><a href="#1-下载ADB（安卓调试桥）" class="headerlink" title="1. 下载ADB（安卓调试桥）"></a>1. 下载ADB（安卓调试桥）</h3><ul>
+<li>Windows：<a target="_blank" rel="noopener" href="https://googledownloads.cn/android/repository/platform-tools-latest-windows.zip">下载链接</a></li>
+<li>Linux：<a target="_blank" rel="noopener" href="https://googledownloads.cn/android/repository/platform-tools-latest-linux.zip">下载链接</a><br><strong>注：Linux平台也可以使用自带的软件包管理器下载如Ubuntu直接使用<code>sudo apt install adb</code>即可安装使用，centOS不可以。其它Linux没测试。</strong></li>
+</ul>
+<h3 id="2-配置环境变量"><a href="#2-配置环境变量" class="headerlink" title="2. 配置环境变量"></a>2. 配置环境变量</h3><p>下载下来的压缩包解压后可以看到如下的文件结构，最好使用一个文件夹来放置它们<br><img src="/images/Android%E8%AE%BE%E5%A4%87%E8%BF%90%E8%A1%8CJava%E4%BB%A3%E7%A0%81/adb.png" alt="adb文件结构" title="adb文件结构"></p>
+<h4 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h4><p>鼠标右击此电脑，选择属性，找到高级系统设置打开后可以看到如下窗口<br><img src="/images/Android%E8%AE%BE%E5%A4%87%E8%BF%90%E8%A1%8CJava%E4%BB%A3%E7%A0%81/windows_path.png" alt="Windows高级设置" title="Windows高级设置"><br>点击最底部的环境变量按钮然后双击环境变量的<code>Path</code>（用户或者系统的都行），点击新建将刚才解压的adb组件的文件夹路径添加进去即可。</p>
+<h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><p>在终端中输入下面的指令编辑全局环境变量的文件</p>
+<pre><code class="language-bash">sudo vim /etc/profile
+</code></pre>
+<p>键入<code>i</code>输入<code>export PATH=$PATH:&lt;adb_file_path&gt;</code>，<code>&lt;adb_file_path&gt;</code>换为存放adb文件的文件夹路径即可，接着按<code>esc</code>键然后输入<code>:wq</code>退出vim，在终端中输入</p>
+<pre><code class="language-bash">source /etc/profile
+</code></pre>
+<p>使配置生效。<br>如果只修改用户的，只需要输入下面的指令即可，编辑内容相同</p>
+<pre><code class="language-bash">vim ~/.bashrc   # 改用户环境变量文件
+source ~/.bashrc    # 激活用户环境变量，使改变生效
+</code></pre>
+<h3 id="3-下载Android-SDK"><a href="#3-下载Android-SDK" class="headerlink" title="3. 下载Android SDK"></a>3. 下载Android SDK</h3><ul>
+<li>Windows：<a target="_blank" rel="noopener" href="https://dl.google.com/android/repository/commandlinetools-win-13114758_latest.zip?hl=zh-cn">下载链接</a></li>
+<li>Linux：<a target="_blank" rel="noopener" href="https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip?hl=zh-cn">下载链接</a><br><strong>也可以直接下载Android Studio，然后下载SDK，这样可以下载更多更老的SDK方便开发。<a target="_blank" rel="noopener" href="https://developer.android.com/studio?hl=zh-cn">Android Studio官网（中国大陆无法访问）</a><br><a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio?hl=zh-cn">Android Studio官网（中国大陆可访问）</a></strong></li>
+</ul>
+<h3 id="4-编译class文件"><a href="#4-编译class文件" class="headerlink" title="4. 编译class文件"></a>4. 编译class文件</h3><p>在终端中输入下面的代码编译class文件。</p>
+<pre><code class="language-bash">javac $src_file_path    # 根据实际情况替换文件路径
+</code></pre>
+<h2 id="编译dex文件"><a href="#编译dex文件" class="headerlink" title="编译dex文件"></a>编译dex文件</h2><p>首先在Android SDK的文件夹中找到<code>build-tools/&lt;version&gt;/d8.bat</code>（Windows Android Studio下载的SDK）或者上面下载链接下载的压缩包中的<code>bin/d8</code>（Linux） <code>bin/d8.bat</code>（Windows），然后再运行下面的指令</p>
+<ul>
+<li>Windows（建议使用PowerShell）</li>
+</ul>
+<pre><code class="language-PowerShell">.\d8 --output $output_path $class_file_path # 根据实际情况替换文件路径
+</code></pre>
+<ul>
+<li>Linux</li>
+</ul>
+<pre><code class="language-bash">d8 --output $output_path $class_file_path   # 根据实际情况替换文件路径
+</code></pre>
+<h2 id="推送文件到Android设备上"><a href="#推送文件到Android设备上" class="headerlink" title="推送文件到Android设备上"></a>推送文件到Android设备上</h2><p>在终端上使用下面的指令链接在同一局域网中的设备。</p>
+<pre><code class="language-bash">adb devices # 有线连接
+adb connect $HOST[:PORT]    # 无线连接，如设备IP为192.168.1.100端口为11451，则输入adb connect 192.168.1.100:11451
+adb pair $HOST[:PORT]   # 使用配对码连接，无线连接的另一种方式使用方法和无线配对一样，只是多了一个输入配对码
+</code></pre>
+<p>然后使用下面的指令将编译成功的dex文件传输到Android设备上</p>
+<pre><code class="language-bash">adb push $local_file_path $devices_path_with_file_name  # 建议将文件放到/sdcard下，可以让Android大多数文件管理器看到这个文件
+</code></pre>
+<h2 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h2><pre><code class="language-shell">dalvikvm -cp $file_path_in_android $package_name.class_name # 如果代码顶部加了package语句package_name就填那个值，没有就不用填，只需要填执行的类名
+</code></pre>
+<p>即可看到代码的输出，至此运行大功告成。</p>
+
+      </div>
+    </div>
+
+    <!-- 目录 -->
+    <aside class="post-toc">
+      <div class="toc-header">
+        <span>目录</span>
+        <button class="toc-collapse">
+          <img src="/images/access/collapse.png" alt="collapse" class="collapse-icon">
+        </button>
+      </div>
+      <div class="toc-content">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%8B%E8%BD%BDADB%EF%BC%88%E5%AE%89%E5%8D%93%E8%B0%83%E8%AF%95%E6%A1%A5%EF%BC%89"><span class="toc-text">1. 下载ADB（安卓调试桥）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">2. 配置环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows"><span class="toc-text">Windows</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Linux"><span class="toc-text">Linux</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%B8%8B%E8%BD%BDAndroid-SDK"><span class="toc-text">3. 下载Android SDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%BC%96%E8%AF%91class%E6%96%87%E4%BB%B6"><span class="toc-text">4. 编译class文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91dex%E6%96%87%E4%BB%B6"><span class="toc-text">编译dex文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E9%80%81%E6%96%87%E4%BB%B6%E5%88%B0Android%E8%AE%BE%E5%A4%87%E4%B8%8A"><span class="toc-text">推送文件到Android设备上</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C"><span class="toc-text">执行</span></a></li></ol>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <p>© 2025 風によって舞いお落ちる的blog. All rights reserved.</p>
+</footer>
+
+
+<!-- Prism 样式 -->
+<link rel="stylesheet" href="/css/prism-tomorrow.min.css">
+<link rel="stylesheet" href="/css/prism-line-numbers.min.css">
+<link rel="stylesheet" href="/css/code.css">
+<link rel="stylesheet" href="/css/prism.css">
+
+<!-- Prism 高亮 -->
+<script src="/js/prism.min.js"></script>
+<script src="/js/prism-line-numbers.min.js"></script>
+
+<!-- TOC 折叠 JS -->
+<script src="/js/toc.js"></script>
+
+<!-- 代码复制 JS -->
+<script src="/js/code.js"></script>
+<script src="/js/prism.js"></script>

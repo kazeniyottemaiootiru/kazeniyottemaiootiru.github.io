@@ -3,7 +3,63 @@
     <id>http://example.com</id>
     <title>風によって舞いお落ちる的blog</title>
     <link href="http://example.com" />
-    <updated>2025-10-26T12:24:18.822Z</updated>
+    <updated>2025-11-11T15:29:59.479Z</updated>
+    <entry>
+        <id>http://example.com/2025/11/11/Android%E8%AE%BE%E5%A4%87%E8%BF%90%E8%A1%8CJava%E4%BB%A3%E7%A0%81/</id>
+        <title>Android设备运行Java代码</title>
+        <link rel="alternate" href="http://example.com/2025/11/11/Android%E8%AE%BE%E5%A4%87%E8%BF%90%E8%A1%8CJava%E4%BB%A3%E7%A0%81/"/>
+        <content type="html">&lt;p&gt;Dalvik虚拟机（Android的Java子系统）是Android的Java虚拟机，当需要使用跨平台的时候就需要临时测试代码在Android上是否可行，但这玩意不支持class文件只支持dex类定义，就很烦。&lt;/p&gt;
+&lt;h2 id=&#34;准备工作&#34;&gt;&lt;a href=&#34;#准备工作&#34; class=&#34;headerlink&#34; title=&#34;准备工作&#34;&gt;&lt;/a&gt;准备工作&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;Windows平台推荐使用PowerShell，用cmd可能会出现无法生成dex文件的情况。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;1-下载ADB（安卓调试桥）&#34;&gt;&lt;a href=&#34;#1-下载ADB（安卓调试桥）&#34; class=&#34;headerlink&#34; title=&#34;1. 下载ADB（安卓调试桥）&#34;&gt;&lt;/a&gt;1. 下载ADB（安卓调试桥）&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Windows：&lt;a href=&#34;https://googledownloads.cn/android/repository/platform-tools-latest-windows.zip&#34;&gt;下载链接&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Linux：&lt;a href=&#34;https://googledownloads.cn/android/repository/platform-tools-latest-linux.zip&#34;&gt;下载链接&lt;/a&gt;&lt;br&gt;&lt;strong&gt;注：Linux平台也可以使用自带的软件包管理器下载如Ubuntu直接使用&lt;code&gt;sudo apt install adb&lt;/code&gt;即可安装使用，centOS不可以。其它Linux没测试。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-配置环境变量&#34;&gt;&lt;a href=&#34;#2-配置环境变量&#34; class=&#34;headerlink&#34; title=&#34;2. 配置环境变量&#34;&gt;&lt;/a&gt;2. 配置环境变量&lt;/h3&gt;&lt;p&gt;下载下来的压缩包解压后可以看到如下的文件结构，最好使用一个文件夹来放置它们&lt;br&gt;&lt;img src=&#34;/images/Android%E8%AE%BE%E5%A4%87%E8%BF%90%E8%A1%8CJava%E4%BB%A3%E7%A0%81/adb.png&#34; alt=&#34;adb文件结构&#34; title=&#34;adb文件结构&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;Windows&#34;&gt;&lt;a href=&#34;#Windows&#34; class=&#34;headerlink&#34; title=&#34;Windows&#34;&gt;&lt;/a&gt;Windows&lt;/h4&gt;&lt;p&gt;鼠标右击此电脑，选择属性，找到高级系统设置打开后可以看到如下窗口&lt;br&gt;&lt;img src=&#34;/images/Android%E8%AE%BE%E5%A4%87%E8%BF%90%E8%A1%8CJava%E4%BB%A3%E7%A0%81/windows_path.png&#34; alt=&#34;Windows高级设置&#34; title=&#34;Windows高级设置&#34;&gt;&lt;br&gt;点击最底部的环境变量按钮然后双击环境变量的&lt;code&gt;Path&lt;/code&gt;（用户或者系统的都行），点击新建将刚才解压的adb组件的文件夹路径添加进去即可。&lt;/p&gt;
+&lt;h4 id=&#34;Linux&#34;&gt;&lt;a href=&#34;#Linux&#34; class=&#34;headerlink&#34; title=&#34;Linux&#34;&gt;&lt;/a&gt;Linux&lt;/h4&gt;&lt;p&gt;在终端中输入下面的指令编辑全局环境变量的文件&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo vim /etc/profile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;键入&lt;code&gt;i&lt;/code&gt;输入&lt;code&gt;export PATH=$PATH:&amp;lt;adb_file_path&amp;gt;&lt;/code&gt;，&lt;code&gt;&amp;lt;adb_file_path&amp;gt;&lt;/code&gt;换为存放adb文件的文件夹路径即可，接着按&lt;code&gt;esc&lt;/code&gt;键然后输入&lt;code&gt;:wq&lt;/code&gt;退出vim，在终端中输入&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;source /etc/profile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;使配置生效。&lt;br&gt;如果只修改用户的，只需要输入下面的指令即可，编辑内容相同&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;vim ~/.bashrc   # 改用户环境变量文件
+source ~/.bashrc    # 激活用户环境变量，使改变生效
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;3-下载Android-SDK&#34;&gt;&lt;a href=&#34;#3-下载Android-SDK&#34; class=&#34;headerlink&#34; title=&#34;3. 下载Android SDK&#34;&gt;&lt;/a&gt;3. 下载Android SDK&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Windows：&lt;a href=&#34;https://dl.google.com/android/repository/commandlinetools-win-13114758_latest.zip?hl=zh-cn&#34;&gt;下载链接&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Linux：&lt;a href=&#34;https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip?hl=zh-cn&#34;&gt;下载链接&lt;/a&gt;&lt;br&gt;&lt;strong&gt;也可以直接下载Android Studio，然后下载SDK，这样可以下载更多更老的SDK方便开发。&lt;a href=&#34;https://developer.android.com/studio?hl=zh-cn&#34;&gt;Android Studio官网（中国大陆无法访问）&lt;/a&gt;&lt;br&gt;&lt;a href=&#34;https://developer.android.google.cn/studio?hl=zh-cn&#34;&gt;Android Studio官网（中国大陆可访问）&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;4-编译class文件&#34;&gt;&lt;a href=&#34;#4-编译class文件&#34; class=&#34;headerlink&#34; title=&#34;4. 编译class文件&#34;&gt;&lt;/a&gt;4. 编译class文件&lt;/h3&gt;&lt;p&gt;在终端中输入下面的代码编译class文件。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;javac $src_file_path    # 根据实际情况替换文件路径
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;编译dex文件&#34;&gt;&lt;a href=&#34;#编译dex文件&#34; class=&#34;headerlink&#34; title=&#34;编译dex文件&#34;&gt;&lt;/a&gt;编译dex文件&lt;/h2&gt;&lt;p&gt;首先在Android SDK的文件夹中找到&lt;code&gt;build-tools/&amp;lt;version&amp;gt;/d8.bat&lt;/code&gt;（Windows Android Studio下载的SDK）或者上面下载链接下载的压缩包中的&lt;code&gt;bin/d8&lt;/code&gt;（Linux） &lt;code&gt;bin/d8.bat&lt;/code&gt;（Windows），然后再运行下面的指令&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Windows（建议使用PowerShell）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-PowerShell&#34;&gt;.\d8 --output $output_path $class_file_path # 根据实际情况替换文件路径
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Linux&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;d8 --output $output_path $class_file_path   # 根据实际情况替换文件路径
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;推送文件到Android设备上&#34;&gt;&lt;a href=&#34;#推送文件到Android设备上&#34; class=&#34;headerlink&#34; title=&#34;推送文件到Android设备上&#34;&gt;&lt;/a&gt;推送文件到Android设备上&lt;/h2&gt;&lt;p&gt;在终端上使用下面的指令链接在同一局域网中的设备。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb devices # 有线连接
+adb connect $HOST[:PORT]    # 无线连接，如设备IP为192.168.1.100端口为11451，则输入adb connect 192.168.1.100:11451
+adb pair $HOST[:PORT]   # 使用配对码连接，无线连接的另一种方式使用方法和无线配对一样，只是多了一个输入配对码
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;然后使用下面的指令将编译成功的dex文件传输到Android设备上&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;adb push $local_file_path $devices_path_with_file_name  # 建议将文件放到/sdcard下，可以让Android大多数文件管理器看到这个文件
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;执行&#34;&gt;&lt;a href=&#34;#执行&#34; class=&#34;headerlink&#34; title=&#34;执行&#34;&gt;&lt;/a&gt;执行&lt;/h2&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;dalvikvm -cp $file_path_in_android $package_name.class_name # 如果代码顶部加了package语句package_name就填那个值，没有就不用填，只需要填执行的类名
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;即可看到代码的输出，至此运行大功告成。&lt;/p&gt;
+</content>
+        <updated>2025-11-11T15:29:59.479Z</updated>
+    </entry>
     <entry>
         <id>http://example.com/2025/10/26/centos%E5%AE%89%E8%A3%85MySQL/</id>
         <title>centos安装MySQL（外部导入rpm包）</title>
