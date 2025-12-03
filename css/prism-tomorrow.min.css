@@ -17,7 +17,7 @@ pre[class*=language-] {
     -moz-hyphens: none;
     -ms-hyphens: none;
     hyphens: none;
-    padding-bottom: 1px !important;
+    /* padding-bottom: 1px !important; */
 }
 
 pre[class*=language-] {

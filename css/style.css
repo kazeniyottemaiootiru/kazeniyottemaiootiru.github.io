@@ -8,6 +8,10 @@ body, html {
   color: #000;
   display: flex;
   flex-direction: column;
+  cursor: url('/images/cursor.png'), auto;
+}
+body a{
+  cursor: url('/images/cursor.png'), pointer;
 }
 
 /* 顶部信息栏 */
@@ -17,10 +21,11 @@ body, html {
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   padding: 15px 30px;
   background-color: rgba(10, 31, 68, 1);
+  box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, .35);
   backdrop-filter: blur(10px);
   z-index: 1000;
 }
@@ -32,8 +37,16 @@ body, html {
 
 .topbar nav a {
   margin-left: 20px;
-  color: #1e90ff;
+  color: #fff;
   text-decoration: none;
+}
+
+.logo{
+  color: #fff;
+}
+.logo a{
+  text-decoration: none;
+  color: #fff;
 }
 
 /* 背景 */
@@ -90,6 +103,10 @@ body, html {
 .post-card h2 {
   margin-top: 0;
   color: #1e90ff;
+}
+
+.post-card a{
+  text-decoration: none;
 }
 
 .post-card p {
@@ -220,7 +237,7 @@ footer {
 .post-content code {
   font-family: Monaco, Consolas, monospace;
   background: #f5f5f5;   /* 浅灰底 */
-  padding: 2px 5px;
+  /* padding: 2px 5px; */
   border-radius: 4px;
   font-size: 0.95em;
   /* color: #c7254e;        字体颜色可自定义 */
@@ -231,15 +248,161 @@ footer {
   font-family: Monaco, Consolas, monospace ;
   /* background: #f5f5f5; */
   /* display: block; */
-  padding: 12px 16px;
+  /* padding: 12px 16px; */
   border-radius: 6px;
   /* overflow-x: auto;      水平滚动条 */
   color: #fff !important;           /* 代码颜色 */
   line-height: 1.5;
 }
 
+/* ==============================
+   代码块容器（MacOS 风格）
+   ============================== */
+.code-block {
+  position: relative;
+  font-family: 'Monaco', monospace;
+  border-radius: 6px;
+  /* margin: 20px 0; */
+  overflow: hidden; /*圆角遮罩*/
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  background: #1e1e2f; /* 深色背景，可根据主题调整 */
+  /* padding-bottom:20px ; */
+}
+
+/* 窗口顶部条（红黄绿圆点 + 复制按钮） */
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  height: 30px;
+  background: #2c2c3a;
+}
+
+/* 红黄绿圆点 */
+.dots {
+  display: flex;
+  gap: 6px;
+}
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot.red { background: #ff5f57; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green { background: #27c93f; }
+
+/* 复制按钮 */
+.copy-btn {
+  background: none;
+  border: none;
+cursor: url('/images/cursor.png'), pointer;
+  font-size: 12px;
+  color: #ccc;
+}
+
+/* ==============================
+   Prism 高亮区域
+   ============================== */
+.code-block pre {
+  margin: 0;
+  /* padding: 20px 20px 5px 20px !important; 顶部留空间放 header */
+  overflow-x: auto;
+  font-family: 'Monaco', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  background: none; /* 使用容器背景 */
+}
+
+/* Prism 行号插件兼容 */
+.code-block pre[class*="language-"].line-numbers {
+  position: relative;
+  padding-left: 3.8em !important; /* 为行号预留空间 */
+}
+
+.code-block .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0px; 
+  font-size: 14px;
+  line-height: 1.5;
+  /* left: 0; */
+  width: 3em;
+  text-align: right;
+  /* padding-right: 0.5em; */
+  color: #fff; /* 行号颜色 */
+  user-select: none;
+}
 
 
+/* ==============================
+   Prism 语法高亮主题示例（类似 prism-tomorrow）
+   ============================== */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #999999;
+}
+
+.token.punctuation {
+  color: #ccc;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #ff9d00;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #a5ff90;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #67d9ff;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #ff79c6;
+}
+
+.token.function,
+.token.class-name {
+  color: #f1fa8c;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #ff5555;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
 
 
 

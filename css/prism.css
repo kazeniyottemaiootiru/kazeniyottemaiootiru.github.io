@@ -19,7 +19,7 @@ pre[class*=language-] {
     -moz-hyphens: none;
     -ms-hyphens: none;
     hyphens: none;
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 pre[class*=language-] {
